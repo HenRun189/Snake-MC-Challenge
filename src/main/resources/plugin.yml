@@ -1,0 +1,6 @@
+name: Snake-MC-Challenge
+version: '${version}'
+
+main: me.HenRun189.snakeMCChallenge.SnakeMCChallenge
+api-version: '26.1.2'
+load: POSTWORLD
