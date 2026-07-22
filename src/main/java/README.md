@@ -12,7 +12,7 @@ markdown
 
 <br/>
 
-[![Minecraft](https://img.shields.io/badge/Minecraft-1.21.6+-62B47A?style=for-the-badge&logo=minecraft&logoColor=white)](https://www.minecraft.net/)
+[![Minecraft](https://img.shields.io/badge/Minecraft-26.1.2+-62B47A?style=for-the-badge&logo=minecraft&logoColor=white)](https://www.minecraft.net/)
 [![Paper](https://img.shields.io/badge/Paper-API-F7C948?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xNCAySDZhMiAyIDAgMCAwLTIgMnYxNmEyIDIgMCAwIDAgMiAyaDEyYTIgMiAwIDAgMCAyLTJWOGwtNi02eiIvPjwvc3ZnPg==&logoColor=black)](https://papermc.io/)
 [![Java](https://img.shields.io/badge/Java-21+-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
 [![Gradle](https://img.shields.io/badge/Gradle-Kotlin_DSL-02303A?style=for-the-badge&logo=gradle&logoColor=white)](https://gradle.org/)
@@ -68,7 +68,7 @@ Das Ziel? **Minecraft vollständig durchspielen** – von der ersten Holzaxt bis
 ## 📥 Installation
 
 > [!IMPORTANT]
-> Das Plugin benötigt einen **Paper-Server 1.21.6 oder neuer**. Spigot oder Vanilla werden **nicht** unterstützt.
+> Das Plugin benötigt einen **Paper-Server 26.1.2 oder neuer**. Spigot oder Vanilla werden **nicht** unterstützt.
 
 **Schritt 1: Plugin herunterladen**
 
@@ -258,7 +258,7 @@ Contributions sind herzlich willkommen! 🎉
 - Verwende **Java 21+** und den bestehenden Gradle-Build
 - Befolge die [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html)
 - Schreibe **aussagekräftige Commit-Messages** (z. B. `feat:`, `fix:`, `docs:`)
-- Teste dein Plugin auf einem **lokalen Paper 1.21.6+ Server** bevor du einen PR öffnest
+- Teste dein Plugin auf einem **lokalen Paper 26.1.2+ Server** bevor du einen PR öffnest
 - Beschreibe in deinem PR **was** du geändert hast und **warum**
 
 </details>
