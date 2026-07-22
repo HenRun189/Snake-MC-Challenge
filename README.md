@@ -347,5 +347,5 @@ Entwickelt mit ❤️ von
 ---
 
 <div align="center">
-<sub>Snake MC Challenge • Paper 1.21.6+ • MIT License • Made in Germany 🇩🇪</sub>
+<sub>Snake MC Challenge • Paper 26.1.2+ • MIT License • Made in Germany 🇩🇪</sub>
 </div>
