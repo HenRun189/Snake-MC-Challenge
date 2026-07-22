@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bf3c894-6592-4350-b7ad-82d474a7f7b7" name="Changes" comment="README.md datei hinzugefügt" />
+    <list default="true" id="7bf3c894-6592-4350-b7ad-82d474a7f7b7" name="Changes" comment="README ort geändert">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,6 +99,11 @@
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Henri\IdeaProjects\Snake-MC-Challenge" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Snake-MC-Challenge [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -186,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784748708269</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="README ort geändert">
+      <option name="closed" value="true" />
+      <created>1784748925239</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1784748925239</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,6 +221,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: add core plugin structure for Snake Challenge&#10;&#10;- Add GameManager with state handling (IDLE, RUNNING, PAUSED)&#10;- Add /snake command (start, stop, pause, resume)&#10;- Add PlayerMoveListener placeholder for trail logic&#10;- Add ScoreboardUI for basic sidebar display&#10;- Configure plugin.yml with command &amp; permission setup" />
     <MESSAGE value="README.md datei hinzugefügt" />
-    <option name="LAST_COMMIT_MESSAGE" value="README.md datei hinzugefügt" />
+    <MESSAGE value="README ort geändert" />
+    <option name="LAST_COMMIT_MESSAGE" value="README ort geändert" />
   </component>
 </project>
