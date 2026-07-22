@@ -9,13 +9,14 @@ public class GameManager {
 
     private GameState state = GameState.IDLE;
     private final Set<Player> activePlayers = new HashSet<>();
+    private
 
-    public boolean start() {
+    boolean start() {
         if (state == GameState.RUNNING) {
             return false;
         }
         state = GameState.RUNNING;
-        // TODO: Hier deine Start-Logik (Trails initialisieren, Spieler sammeln, etc.)
+
         return true;
     }
 
