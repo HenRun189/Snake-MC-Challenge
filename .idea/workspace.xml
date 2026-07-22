@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bf3c894-6592-4350-b7ad-82d474a7f7b7" name="Changes" comment="feat: add core plugin structure for Snake Challenge&#10;&#10;- Add GameManager with state handling (IDLE, RUNNING, PAUSED)&#10;- Add /snake command (start, stop, pause, resume)&#10;- Add PlayerMoveListener placeholder for trail logic&#10;- Add ScoreboardUI for basic sidebar display&#10;- Configure plugin.yml with command &amp; permission setup">
-      <change afterPath="$PROJECT_DIR$/src/main/java/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="7bf3c894-6592-4350-b7ad-82d474a7f7b7" name="Changes" comment="README.md datei hinzugefügt" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -169,7 +162,31 @@
       <option name="project" value="LOCAL" />
       <updated>1784746797554</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="README.md datei hinzugefügt">
+      <option name="closed" value="true" />
+      <created>1784748520462</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1784748520462</updated>
+    </task>
+    <task id="LOCAL-00003" summary="README.md datei hinzugefügt">
+      <option name="closed" value="true" />
+      <created>1784748668070</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1784748668070</updated>
+    </task>
+    <task id="LOCAL-00004" summary="README.md datei hinzugefügt">
+      <option name="closed" value="true" />
+      <created>1784748708269</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1784748708269</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +205,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: add core plugin structure for Snake Challenge&#10;&#10;- Add GameManager with state handling (IDLE, RUNNING, PAUSED)&#10;- Add /snake command (start, stop, pause, resume)&#10;- Add PlayerMoveListener placeholder for trail logic&#10;- Add ScoreboardUI for basic sidebar display&#10;- Configure plugin.yml with command &amp; permission setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add core plugin structure for Snake Challenge&#10;&#10;- Add GameManager with state handling (IDLE, RUNNING, PAUSED)&#10;- Add /snake command (start, stop, pause, resume)&#10;- Add PlayerMoveListener placeholder for trail logic&#10;- Add ScoreboardUI for basic sidebar display&#10;- Configure plugin.yml with command &amp; permission setup" />
+    <MESSAGE value="README.md datei hinzugefügt" />
+    <option name="LAST_COMMIT_MESSAGE" value="README.md datei hinzugefügt" />
   </component>
 </project>

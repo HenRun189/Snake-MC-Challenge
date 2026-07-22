@@ -1,9 +1,7 @@
-markdown
+
 <div align="center">
-
 <!-- Banner Placeholder -->
-<img src="https://via.placeholder.com/900x250/1a1a2e/00d4ff?text=🐍+Snake+MC+Challenge" alt="Snake MC Challenge Banner" width="100%"/>
-
+<!-- <img src="https://via.placeholder.com/900x250/1a1a2e/00d4ff?text=🐍+Snake+MC+Challenge" alt="Snake MC Challenge Banner" width="100%"/> -->
 <br/>
 
 # 🐍 Snake MC Challenge
