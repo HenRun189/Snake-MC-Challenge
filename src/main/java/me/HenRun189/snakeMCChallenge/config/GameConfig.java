@@ -6,10 +6,9 @@ import org.bukkit.World;
 
 import java.util.HashMap;
 
-public class GameConfig {
+import static java.lang.Math.pow;
 
-    // Mindestabstand (in Blöcken), ab dem eine Trail-Berührung als Kollision zählt
-    public static final double COLLISION_DISTANCE = 0.5;
+public class GameConfig {
 
     // Wie oft (in Ticks) ein neuer Trail-Punkt gesetzt wird
     public static final int TRAIL_INTERVAL_TICKS = 2;
@@ -24,5 +23,8 @@ public class GameConfig {
 
     public static final Material[] snakeMaterial = {};
 
-    public static final double SNAKE_RENDER_DISTANCE = 30.0;
+    public static final double SNAKE_RENDER_DISTANCE = pow(30.0 ,2);
+
+    public static final double SNAKE_KILL_DISTANCE = pow(0.5, 2);
+
 }

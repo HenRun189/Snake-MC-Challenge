@@ -1,26 +1,81 @@
 package me.HenRun189.snakeMCChallenge.game;
 
+import me.HenRun189.snakeMCChallenge.config.GameConfig;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+
+import java.util.*;
 
 public class GameManager {
 
     private GameState state = GameState.IDLE;
     private final Set<Player> activePlayers = new HashSet<>();
-    private
+    ArrayList<SnakePart> snakeParts = new ArrayList<>();
+    ArrayList<SnakePart> loadedSnakeParts = new ArrayList<>();
+    HashMap<UUID, PlayerData> data = new HashMap<>();
+    protected int taskId = -1;
 
-    boolean start() {
+    public boolean start() {
+
+        // data.put(p.getUniqueId(), new PlayerData(p.getUniqueId()));
         if (state == GameState.RUNNING) {
             return false;
         }
         state = GameState.RUNNING;
 
+        int playerAmount = 0;
+        for (Player p : activePlayers) {
+            data.put(p.getUniqueId(), new PlayerData(playerAmount));
+            playerAmount++;
+        }
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+
+                for (Player p : activePlayers) {
+                    for (SnakePart snakePart : loadedSnakeParts) {
+                        if (snakePart.squareDistance(p) < GameConfig.SNAKE_KILL_DISTANCE && snakePart.loc.getWorld() == p.getLocation().getWorld()) {
+                            if (    snakePart != data.get(p.getUniqueId()).lastSnakeID[0] &&
+                                    snakePart != data.get(p.getUniqueId()).lastSnakeID[1]) {
+
+                                p.kill();
+                            }
+                        }
+                    }
+                }
+
+                for (Player p : activePlayers) {
+                    if (data.get(p.getUniqueId()).lastSnakeID[0].squareDistance(p) > GameConfig.SNAKE_KILL_DISTANCE && data.get(p.getUniqueId()).lastSnakeID[0].loc.getWorld() == p.getLocation().getWorld()) {
+
+                        data.get(p.getUniqueId()).lastSnakeID[1] = data.get(p.getUniqueId()).lastSnakeID[0];
+                        data.get(p.getUniqueId()).lastSnakeID[0] = new SnakePart(p.getLocation(), data.get(p.getUniqueId()).snakeMaterialID);
+                        snakeParts.add(data.get(p.getUniqueId()).lastSnakeID[0]);
+
+                        loadedSnakeParts.clear();
+
+                        for (SnakePart snakePart : snakeParts) {
+                            if (snakePart.squareDistance(p) < GameConfig.SNAKE_RENDER_DISTANCE) {
+                                loadedSnakeParts.add(snakePart);
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
         return true;
     }
 
     public boolean stop() {
+        if (taskId != -1) {
+            Bukkit.getScheduler().cancelTask(taskId);
+            taskId = -1;
+        }
         if (state == GameState.IDLE) {
             return false;
         }
@@ -30,7 +85,7 @@ public class GameManager {
         return true;
     }
 
-    public boolean pause() {
+    boolean pause() {
         if (state != GameState.RUNNING) {
             return false;
         }

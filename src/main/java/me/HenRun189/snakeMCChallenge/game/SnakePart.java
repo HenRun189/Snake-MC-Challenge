@@ -42,6 +42,11 @@ public class SnakePart {
     Location loc;
     int blockIndex;
 
+    SnakePart(Location pLoc, int pBlockIndex) {
+        loc = pLoc;
+        blockIndex = pBlockIndex;
+    }
+
     void displaySnake() {
         ItemFrame frame = world.<ItemFrame>spawn(loc, ItemFrame.class);
 
@@ -55,12 +60,8 @@ public class SnakePart {
         frame.setFixed(true);
     }
 
-    boolean renderDistance(Set<Player> players) {
-
-        for (Player p : players) {
-            if (p.getLocation().distance(loc) < SNAKE_RENDER_DISTANCE)
-                return true;
-        }
-        return false;
+    double squareDistance(Player p) {
+        return p.getLocation().distanceSquared(loc);
     }
+
 }
