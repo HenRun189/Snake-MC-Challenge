@@ -114,7 +114,7 @@ public class GameManager {
         return true;
     }
 
-    boolean pause() {
+    public boolean pause() {
         if (state != GameState.RUNNING) {
             return false;
         }
