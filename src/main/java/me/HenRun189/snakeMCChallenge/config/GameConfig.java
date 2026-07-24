@@ -28,10 +28,10 @@ public class GameConfig {
     public static final double SNAKE_RENDER_DISTANCE = pow(50.0, 2);
 
     // Kollision mit Spieler = Tod
-    public static final double SNAKE_KILL_DISTANCE = pow(0.5, 2);
+    public static final double SNAKE_KILL_DISTANCE = pow(0.8, 2);
 
     // Abstand, ab dem ein neues Segment gespawnt wird (kleiner = doppelt so oft)
-    public static final double SNAKE_SPAWN_DISTANCE = pow(0.25, 2);
+    public static final double SNAKE_SPAWN_DISTANCE = pow(0.08, 2);
 
     public static final long TICK_RATE = 4L;
 }

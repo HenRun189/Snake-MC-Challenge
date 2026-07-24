@@ -5,11 +5,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 public class GameManager {
 
+    private static final Logger log = LoggerFactory.getLogger(GameManager.class);
     private final Plugin plugin;
     private GameState state = GameState.IDLE;
     private final Set<Player> activePlayers = new HashSet<>();
@@ -83,21 +86,22 @@ public class GameManager {
                         ArrayList<LoadedSnakePart> prevLoadedSnakeParts = new ArrayList<>(loadedSnakeParts);
                         loadedSnakeParts.clear();
 
-                        // Nur einmal pro bewegtem Spieler p rendern, nicht verschachtelt über alle Spieler
-                        for (SnakePart snakePart : snakeParts) {
-                            if (snakePart.squareDistance(p) < GameConfig.SNAKE_RENDER_DISTANCE) {
-                                boolean containsLSP = false;
-                                for (LoadedSnakePart prevLoadedSnakePart : prevLoadedSnakeParts) {
-                                    if (snakePart == prevLoadedSnakePart.snakePart) {
-                                        containsLSP = true;
-                                        loadedSnakeParts.add(prevLoadedSnakePart);
-                                        break;
+                        for (Player p1 : activePlayers) {
+                            for (SnakePart snakePart : snakeParts) {
+                                if (snakePart.squareDistance(p) < GameConfig.SNAKE_RENDER_DISTANCE) {
+                                    boolean containsLSP = false;
+                                    for (LoadedSnakePart prevLoadedSnakePart : prevLoadedSnakeParts) {
+                                        if (snakePart == prevLoadedSnakePart.snakePart) {
+                                            containsLSP = true;
+                                            loadedSnakeParts.add(prevLoadedSnakePart);
+                                            break;
+                                        }
                                     }
-                                }
-                                if (!containsLSP) {
-                                    LoadedSnakePart newLoadedSnakePart =
-                                            new LoadedSnakePart(snakePart, snakePart.displaySnake());
-                                    loadedSnakeParts.add(newLoadedSnakePart);
+                                    if (!containsLSP) {
+                                        LoadedSnakePart newLoadedSnakePart =
+                                                new LoadedSnakePart(snakePart, snakePart.displaySnake());
+                                        loadedSnakeParts.add(newLoadedSnakePart);
+                                    }
                                 }
                             }
                         }

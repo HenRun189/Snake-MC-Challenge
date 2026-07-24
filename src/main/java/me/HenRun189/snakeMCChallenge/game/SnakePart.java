@@ -26,8 +26,9 @@ public class SnakePart {
         display.setBlock(snakeMaterial[blockIndex].createBlockData());
 
         float scale = 0.25f;
+        float yOffset = 0.3f; // deutlich kleiner als 0.8, sonst schwebt es zu hoch
         Transformation transformation = new Transformation(
-                new Vector3f(0.5f - scale / 2, 0f, 0.5f - scale / 2),
+                new Vector3f(-scale / 2, yOffset, -scale / 2), // zentriert direkt auf loc, kein Block-Offset
                 new AxisAngle4f(0, 0, 0, 1),
                 new Vector3f(scale, scale, scale),
                 new AxisAngle4f(0, 0, 0, 1)
