@@ -21,7 +21,19 @@ public class GameConfig {
 
     public static final World world = Bukkit.getWorld("world");
 
-    public static final Material[] snakeMaterial = {};
+    public static final Material[] snakeMaterial = {
+
+            Material.COAL_BLOCK,
+            Material.IRON_BLOCK,
+            Material.COPPER_BLOCK,
+            Material.GOLD_BLOCK,
+            Material.LAPIS_BLOCK,
+            Material.REDSTONE_BLOCK,
+            Material.DIAMOND_BLOCK,
+            Material.EMERALD_BLOCK,
+            Material.NETHERITE_BLOCK
+
+    };
 
     public static final double SNAKE_RENDER_DISTANCE = pow(30.0 ,2);
 
