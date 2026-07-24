@@ -3,14 +3,14 @@ package me.HenRun189.snakeMCChallenge.game;
 import me.HenRun189.snakeMCChallenge.config.GameConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.HashMap;
 
 import java.util.*;
 
 public class GameManager {
 
+    private final Plugin plugin;
     private GameState state = GameState.IDLE;
     private final Set<Player> activePlayers = new HashSet<>();
     ArrayList<SnakePart> snakeParts = new ArrayList<>();
@@ -18,9 +18,11 @@ public class GameManager {
     HashMap<UUID, PlayerData> data = new HashMap<>();
     protected int taskId = -1;
 
-    public boolean start() {
+    public GameManager(Plugin plugin) {
+        this.plugin = plugin;
+    }
 
-        // data.put(p.getUniqueId(), new PlayerData(p.getUniqueId()));
+    public boolean start() {
         if (state == GameState.RUNNING) {
             return false;
         }
@@ -28,74 +30,78 @@ public class GameManager {
 
         int playerAmount = 0;
         for (Player p : activePlayers) {
-            data.put(p.getUniqueId(), new PlayerData(playerAmount));
+            PlayerData pd = new PlayerData(playerAmount);
+            // Erstes SnakePart an der aktuellen Position anlegen, sonst NPE im Tick-Loop
+            SnakePart initialPart = new SnakePart(p.getLocation(), pd.snakeMaterialID);
+            pd.lastSnakeID[0] = initialPart;
+            pd.lastSnakeID[1] = initialPart;
+            snakeParts.add(initialPart);
+            data.put(p.getUniqueId(), pd);
             playerAmount++;
         }
 
-        new BukkitRunnable() {
-
+        BukkitRunnable runnable = new BukkitRunnable() {
             @Override
             public void run() {
+                if (state != GameState.RUNNING) {
+                    return;
+                }
 
-                 if (state == GameState.RUNNING) {
-                     for (Player p : activePlayers) {
-                         for (LoadedSnakePart loadedSnakePart : loadedSnakeParts) {
-                             if (loadedSnakePart.snakePart.squareDistance(p) < GameConfig.SNAKE_KILL_DISTANCE && loadedSnakePart.snakePart.loc.getWorld() == p.getLocation().getWorld()) {
-                                 if (loadedSnakePart.snakePart != data.get(p.getUniqueId()).lastSnakeID[0] &&
-                                         loadedSnakePart.snakePart != data.get(p.getUniqueId()).lastSnakeID[1]) {
+                for (Player p : activePlayers) {
+                    for (LoadedSnakePart loadedSnakePart : loadedSnakeParts) {
+                        if (loadedSnakePart.snakePart.squareDistance(p) < GameConfig.SNAKE_KILL_DISTANCE
+                                && loadedSnakePart.snakePart.loc.getWorld() == p.getLocation().getWorld()) {
+                            PlayerData pd = data.get(p.getUniqueId());
+                            if (loadedSnakePart.snakePart != pd.lastSnakeID[0]
+                                    && loadedSnakePart.snakePart != pd.lastSnakeID[1]) {
+                                p.kill();
+                            }
+                        }
+                    }
+                }
 
-                                     p.kill();
-                                 }
-                             }
-                         }
-                     }
+                for (Player p : activePlayers) {
+                    PlayerData pd = data.get(p.getUniqueId());
+                    if (pd.lastSnakeID[0].squareDistance(p) > GameConfig.SNAKE_KILL_DISTANCE
+                            && pd.lastSnakeID[0].loc.getWorld() == p.getLocation().getWorld()) {
 
-                     for (Player p : activePlayers) {
-                         if (data.get(p.getUniqueId()).lastSnakeID[0].squareDistance(p) > GameConfig.SNAKE_KILL_DISTANCE && data.get(p.getUniqueId()).lastSnakeID[0].loc.getWorld() == p.getLocation().getWorld()) {
+                        pd.lastSnakeID[1] = pd.lastSnakeID[0];
+                        pd.lastSnakeID[0] = new SnakePart(p.getLocation(), pd.snakeMaterialID);
+                        snakeParts.add(pd.lastSnakeID[0]);
 
-                             data.get(p.getUniqueId()).lastSnakeID[1] = data.get(p.getUniqueId()).lastSnakeID[0];
-                             data.get(p.getUniqueId()).lastSnakeID[0] = new SnakePart(p.getLocation(), data.get(p.getUniqueId()).snakeMaterialID);
-                             snakeParts.add(data.get(p.getUniqueId()).lastSnakeID[0]);
+                        ArrayList<LoadedSnakePart> prevLoadedSnakeParts = new ArrayList<>(loadedSnakeParts);
+                        loadedSnakeParts.clear();
 
-                             ArrayList<LoadedSnakePart> prevLoadedSnakeParts = new ArrayList<LoadedSnakePart>(loadedSnakeParts);
-                             loadedSnakeParts.clear();
+                        for (SnakePart snakePart : snakeParts) {
+                            if (snakePart.squareDistance(p) < GameConfig.SNAKE_RENDER_DISTANCE) {
+                                boolean containsLSP = false;
+                                for (LoadedSnakePart prevLoadedSnakePart : prevLoadedSnakeParts) {
+                                    if (snakePart == prevLoadedSnakePart.snakePart) {
+                                        containsLSP = true;
+                                        loadedSnakeParts.add(prevLoadedSnakePart);
+                                        break;
+                                    }
+                                }
+                                if (!containsLSP) {
+                                    LoadedSnakePart newLoadedSnakePart =
+                                            new LoadedSnakePart(snakePart, snakePart.displaySnake());
+                                    loadedSnakeParts.add(newLoadedSnakePart);
+                                }
+                            }
+                        }
 
-                             for (SnakePart snakePart : snakeParts) {
-                                 if (snakePart.squareDistance(p) < GameConfig.SNAKE_RENDER_DISTANCE) {
-                                     boolean containsLSP = false;
-
-                                     for (LoadedSnakePart prevLoadedSnakePart : prevLoadedSnakeParts) {
-                                         if (snakePart == prevLoadedSnakePart.snakePart) {
-                                             containsLSP = true;
-                                             break;
-                                         }
-                                     }
-                                     if (!containsLSP) {
-                                         LoadedSnakePart newLoadedSnakePart = new LoadedSnakePart(snakePart, snakePart.displaySnake());
-                                     }
-                                 }
-                             }
-
-                             for (LoadedSnakePart prevLoadedSnakePart : prevLoadedSnakeParts) {
-                                 boolean containsLSP = false;
-
-                                 for (LoadedSnakePart loadedSnakePart : loadedSnakeParts) {
-                                     if (loadedSnakePart == prevLoadedSnakePart) {
-                                         containsLSP = true;
-                                         break;
-                                     }
-                                 }
-                                 if (!containsLSP) {
-                                     prevLoadedSnakePart.itemFrame.remove();
-                                     loadedSnakeParts.remove(prevLoadedSnakePart);
-                                     prevLoadedSnakeParts.remove(prevLoadedSnakePart);
-                                 }
-                             }
-                         }
-                     }
-                 }
+                        for (LoadedSnakePart prevLoadedSnakePart : prevLoadedSnakeParts) {
+                            if (!loadedSnakeParts.contains(prevLoadedSnakePart)) {
+                                prevLoadedSnakePart.itemFrame.remove();
+                            }
+                        }
+                    }
+                }
             }
         };
+
+        // Ohne diese Zeile lief der Task NIE - das war der Hauptfehler
+        taskId = runnable.runTaskTimer(plugin, 0L, GameConfig.TICK_RATE).getTaskId();
 
         return true;
     }
@@ -109,8 +115,15 @@ public class GameManager {
             return false;
         }
         state = GameState.IDLE;
+
+        for (LoadedSnakePart lsp : loadedSnakeParts) {
+            lsp.itemFrame.remove();
+        }
+        loadedSnakeParts.clear();
+        snakeParts.clear();
+        data.clear();
         activePlayers.clear();
-        // TODO: Hier deine Aufräum-Logik (Trails entfernen, Spieler zurücksetzen)
+
         return true;
     }
 
@@ -119,7 +132,6 @@ public class GameManager {
             return false;
         }
         state = GameState.PAUSED;
-        // TODO: Hier deine Pause-Logik (Ticks stoppen etc.)
         return true;
     }
 
@@ -128,8 +140,18 @@ public class GameManager {
             return false;
         }
         state = GameState.RUNNING;
-        // TODO: Hier deine Resume-Logik
         return true;
+    }
+
+    public boolean join(Player p) {
+        if (state == GameState.RUNNING) {
+            return false;
+        }
+        return activePlayers.add(p);
+    }
+
+    public boolean leave(Player p) {
+        return activePlayers.remove(p);
     }
 
     public GameState getState() {

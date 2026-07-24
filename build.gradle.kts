@@ -13,20 +13,17 @@ dependencies {
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(26)
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
 }
 
 tasks {
     runServer {
-        // Configure the Minecraft version for our task.
-        // This is the only required configuration besides applying the plugin.
-        // Your plugin's jar (or shadowJar if present) will be used automatically.
         minecraftVersion("26.1.2")
         jvmArgs("-Xms2G", "-Xmx2G")
     }
 
     processResources {
-        val props = mapOf("version" to version )
+        val props = mapOf("version" to version)
         filesMatching("plugin.yml") {
             expand(props)
         }

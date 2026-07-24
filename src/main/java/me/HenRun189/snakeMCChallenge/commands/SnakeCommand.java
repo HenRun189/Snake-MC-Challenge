@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class SnakeCommand implements CommandExecutor {
 
@@ -17,7 +18,7 @@ public class SnakeCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(ChatColor.YELLOW + "Nutzung: /snake <start|stop|pause|resume>");
+            sender.sendMessage(ChatColor.YELLOW + "Nutzung: /snake <start|stop|pause|resume|join|leave>");
             return true;
         }
 
@@ -54,8 +55,32 @@ public class SnakeCommand implements CommandExecutor {
                 }
                 break;
 
+            case "join":
+                if (!(sender instanceof Player)) {
+                    sender.sendMessage(ChatColor.RED + "Nur Spieler können beitreten.");
+                    break;
+                }
+                if (gameManager.join((Player) sender)) {
+                    sender.sendMessage(ChatColor.GREEN + "Du bist der Challenge beigetreten.");
+                } else {
+                    sender.sendMessage(ChatColor.RED + "Beitritt nicht möglich (läuft bereits oder bereits beigetreten).");
+                }
+                break;
+
+            case "leave":
+                if (!(sender instanceof Player)) {
+                    sender.sendMessage(ChatColor.RED + "Nur Spieler können verlassen.");
+                    break;
+                }
+                if (gameManager.leave((Player) sender)) {
+                    sender.sendMessage(ChatColor.GREEN + "Du hast die Challenge verlassen.");
+                } else {
+                    sender.sendMessage(ChatColor.RED + "Du warst nicht Teil der Challenge.");
+                }
+                break;
+
             default:
-                sender.sendMessage(ChatColor.RED + "Unbekannter Befehl. Nutzung: /snake <start|stop|pause|resume>");
+                sender.sendMessage(ChatColor.RED + "Unbekannter Befehl. Nutzung: /snake <start|stop|pause|resume|join|leave>");
         }
         return true;
     }

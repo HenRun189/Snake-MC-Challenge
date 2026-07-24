@@ -13,13 +13,10 @@ public final class SnakeMCChallenge extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.gameManager = new GameManager();
+        this.gameManager = new GameManager(this); // Plugin-Referenz übergeben
         this.scoreboardUI = new ScoreboardUI(gameManager);
 
-        // Command registrieren
         getCommand("snake").setExecutor(new SnakeCommand(gameManager));
-
-        // Listener registrieren
         getServer().getPluginManager().registerEvents(new PlayerMoveListener(gameManager), this);
 
         getLogger().info("SnakeMCChallenge wurde aktiviert.");

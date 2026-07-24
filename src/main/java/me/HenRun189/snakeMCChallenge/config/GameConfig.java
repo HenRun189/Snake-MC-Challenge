@@ -39,4 +39,6 @@ public class GameConfig {
 
     public static final double SNAKE_KILL_DISTANCE = pow(0.5, 2);
 
+    public static final long TICK_RATE = 4L; // alle 4 Ticks = 5x pro Sekunde
+
 }
