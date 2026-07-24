@@ -47,7 +47,7 @@ public class SnakePart {
         blockIndex = pBlockIndex;
     }
 
-    void displaySnake() {
+    ItemFrame displaySnake() {
         ItemFrame frame = world.<ItemFrame>spawn(loc, ItemFrame.class);
 
         ItemStack item =  new ItemStack(snakeMaterial[blockIndex], 1);
@@ -58,6 +58,8 @@ public class SnakePart {
         frame.setInvulnerable(true);
 
         frame.setFixed(true);
+
+        return frame;
     }
 
     double squareDistance(Player p) {

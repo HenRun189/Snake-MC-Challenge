@@ -14,7 +14,7 @@ public class GameManager {
     private GameState state = GameState.IDLE;
     private final Set<Player> activePlayers = new HashSet<>();
     ArrayList<SnakePart> snakeParts = new ArrayList<>();
-    ArrayList<SnakePart> loadedSnakeParts = new ArrayList<>();
+    ArrayList<LoadedSnakePart> loadedSnakeParts = new ArrayList<>();
     HashMap<UUID, PlayerData> data = new HashMap<>();
     protected int taskId = -1;
 
@@ -38,10 +38,10 @@ public class GameManager {
             public void run() {
 
                 for (Player p : activePlayers) {
-                    for (SnakePart snakePart : loadedSnakeParts) {
-                        if (snakePart.squareDistance(p) < GameConfig.SNAKE_KILL_DISTANCE && snakePart.loc.getWorld() == p.getLocation().getWorld()) {
-                            if (    snakePart != data.get(p.getUniqueId()).lastSnakeID[0] &&
-                                    snakePart != data.get(p.getUniqueId()).lastSnakeID[1]) {
+                    for (LoadedSnakePart loadedSnakePart : loadedSnakeParts) {
+                        if (loadedSnakePart.snakePart.squareDistance(p) < GameConfig.SNAKE_KILL_DISTANCE && loadedSnakePart.snakePart.loc.getWorld() == p.getLocation().getWorld()) {
+                            if (    loadedSnakePart.snakePart != data.get(p.getUniqueId()).lastSnakeID[0] &&
+                                    loadedSnakePart.snakePart != data.get(p.getUniqueId()).lastSnakeID[1]) {
 
                                 p.kill();
                             }
@@ -56,11 +56,38 @@ public class GameManager {
                         data.get(p.getUniqueId()).lastSnakeID[0] = new SnakePart(p.getLocation(), data.get(p.getUniqueId()).snakeMaterialID);
                         snakeParts.add(data.get(p.getUniqueId()).lastSnakeID[0]);
 
+                        ArrayList<LoadedSnakePart> prevLoadedSnakeParts = new ArrayList<LoadedSnakePart>(loadedSnakeParts);
                         loadedSnakeParts.clear();
 
                         for (SnakePart snakePart : snakeParts) {
                             if (snakePart.squareDistance(p) < GameConfig.SNAKE_RENDER_DISTANCE) {
-                                loadedSnakeParts.add(snakePart);
+                                boolean containsLSP = false;
+
+                                for (LoadedSnakePart prevLoadedSnakePart : prevLoadedSnakeParts) {
+                                    if (snakePart == prevLoadedSnakePart.snakePart) {
+                                        containsLSP = true;
+                                        break;
+                                    }
+                                }
+                                if (!containsLSP) {
+                                    LoadedSnakePart newLoadedSnakePart = new LoadedSnakePart(snakePart, snakePart.displaySnake());
+                                }
+                            }
+                        }
+
+                        for (LoadedSnakePart prevLoadedSnakePart : prevLoadedSnakeParts) {
+                            boolean containsLSP = false;
+
+                            for (LoadedSnakePart loadedSnakePart : loadedSnakeParts) {
+                                if (loadedSnakePart == prevLoadedSnakePart) {
+                                    containsLSP = true;
+                                    break;
+                                }
+                            }
+                            if (!containsLSP) {
+                                prevLoadedSnakePart.itemFrame.remove();
+                                loadedSnakeParts.remove(prevLoadedSnakePart);
+                                prevLoadedSnakeParts.remove(prevLoadedSnakePart);
                             }
                         }
                     }
