@@ -1,13 +1,13 @@
 package me.HenRun189.snakeMCChallenge.game;
 
-import org.bukkit.entity.ItemFrame;
+import org.bukkit.entity.BlockDisplay;
 
 public class LoadedSnakePart {
     SnakePart snakePart;
-    ItemFrame itemFrame;
+    BlockDisplay blockDisplay;
 
-    LoadedSnakePart(SnakePart pSnakePart, ItemFrame pItemFrame) {
+    LoadedSnakePart(SnakePart pSnakePart, BlockDisplay pBlockDisplay) {
         snakePart = pSnakePart;
-        itemFrame = pItemFrame;
+        blockDisplay = pBlockDisplay;
     }
 }

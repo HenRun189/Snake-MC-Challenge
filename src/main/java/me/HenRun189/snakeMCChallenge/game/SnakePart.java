@@ -2,9 +2,11 @@ package me.HenRun189.snakeMCChallenge.game;
 
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.ItemFrame;
+import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Transformation;
+import org.joml.AxisAngle4f;
+import org.joml.Vector3f;
 
 import static me.HenRun189.snakeMCChallenge.config.GameConfig.*;
 
@@ -17,18 +19,25 @@ public class SnakePart {
         blockIndex = pBlockIndex;
     }
 
-    ItemFrame displaySnake() {
+    BlockDisplay displaySnake() {
         World world = loc.getWorld();
-        ItemFrame frame = world.spawn(loc, ItemFrame.class);
+        BlockDisplay display = world.spawn(loc, BlockDisplay.class);
 
-        ItemStack item = new ItemStack(snakeMaterial[blockIndex], 1);
-        frame.setItem(item);
+        display.setBlock(snakeMaterial[blockIndex].createBlockData());
 
-        frame.setVisible(false);
-        frame.setInvulnerable(true);
-        frame.setFixed(true);
+        float scale = 0.25f;
+        Transformation transformation = new Transformation(
+                new Vector3f(0.5f - scale / 2, 0f, 0.5f - scale / 2),
+                new AxisAngle4f(0, 0, 0, 1),
+                new Vector3f(scale, scale, scale),
+                new AxisAngle4f(0, 0, 0, 1)
+        );
+        display.setTransformation(transformation);
 
-        return frame;
+        display.setPersistent(false);
+        display.setBillboard(org.bukkit.entity.Display.Billboard.FIXED);
+
+        return display;
     }
 
     double squareDistance(Player p) {
